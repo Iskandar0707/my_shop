@@ -6,11 +6,11 @@ from .forms import CartAddProductForm
 @require_POST
 def cart_add(request, product_id):
     cart = Cart(request)
-    Product = get_object_or_404(Product, id=product_id)
+    product = get_object_or_404(Product, id=product_id)
     form = CartAddProductForm(request.POST)
     if form.is_valid():
         cd = form.cleaned_data
-        cart.add(product=Product,
+        cart.add(product=product,
                  quantity=cd['quantity'],
                  override_quantity = cd['override_quantity'])
     return redirect('cart:cart_detail')
